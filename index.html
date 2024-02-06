@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollTrigger/1.0.6/ScrollTrigger.min.js" integrity="sha512-+LXqbM6YLduaaxq6kNcjMsQgZQUTdZp7FTaArWYFt1nxyFKlQSMdIF/WQ/VgsReERwRD8w/9H9cahFx25UDd+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js" integrity="sha512-EZI2cBcGPnmR89wTgVnN3602Yyi7muWo8y1B3a8WmIv1J9tYG+udH4LvmYjLiGp37yHB7FfaPBo8ly178m9g4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+   </head>
+<body>
+    <section class="section-1">
+        <h1>Scroll down for awesomeness.</h1>
+    </section>
+
+    <section class="section-2">
+        <p class="reveal-type">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, dolores praesentium! Deleniti maiores porro ullam?</p>
+    </section>
+   
+   
+    <section class="section-3">
+        <p class="reveal-type">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, dolores praesentium! Deleniti maiores porro ullam?</p>
+    </section>
+   
+   
+    <section class="section-4">
+        <p class="reveal-type">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, dolores praesentium! Deleniti maiores porro ullam?</p>
+    </section>
+
+    <section></section>
+
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger)
+        const splitTypes = document.querySelectorAll('.reveal-type')
+    
+        splitTypes.forEach((char, i) => {
+            const text = new SplitType(char, { types: 'chars' })
+    
+            gsap.from(text.chars, {
+                scrollTrigger: {
+                    trigger: char,
+                    start: 'top 80%',
+                    end: 'top 40%',
+                    scrub: 2,
+                    markers: false
+                },
+                y: 100,
+                opacity: 0,
+                stagger: 0.1
+            })
+    
+            gsap.to(text.chars, {
+                scrollTrigger: {
+                    trigger: char,
+                    start: 'top 80%',
+                    end: 'bottom 10%', 
+                    scrub: 2,
+                    markers: false,
+                   
+                },
+                // y: 0,
+                // opacity: 1,
+                // stagger: 0.1
+            })
+        })
+    
+        const lenis = new Lenis()
+        lenis.on('scroll', (e) => {
+            console.log(e)
+        })
+    
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+    
+        requestAnimationFrame(raf)
+    </script>
+    
+    
+    <style>
+        body{
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+section {
+    height: 100vh;
+    padding: 0 clamp(4rem, 12vw, 20rem);
+    display: grid;
+    place-content: center;
+    
+} 
+section p {
+    font-size: clamp(2rem, 5vw, 8rem);
+}
+section p:nth-of-type(1) {
+    border-bottom: 1px solid black;
+}
+
+.section-3{
+    background: #ffff00;
+}
+
+.section-4{
+    background: rgb(29, 29, 29);
+    color: white;
+}
+
+ 
+
+
+    </style>
+</body>
+</html>
